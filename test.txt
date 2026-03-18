@@ -1,0 +1,20 @@
+streamlit run .\dashboard\app.py
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://10.77.252.246:8501
+
+2026-03-18 17:36:08.328 Uncaught app execution
+Traceback (most recent call last):
+  File "C:\Users\atamolsh\Desktop\Manfu Agentic\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 129, in exec_func_with_error_handling
+    result = func()
+             ^^^^^^
+  File "C:\Users\atamolsh\Desktop\Manfu Agentic\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 689, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\atamolsh\Desktop\Manfu Agentic\dashboard\app.py", line 13, in <module>
+    from agent.agent         import agent
+  File "C:\Users\atamolsh\Desktop\Manfu Agentic\dashboard\..\agent\agent.py", line 11, in <module>
+    from tools       import ALL_TOOLS
+ImportError: cannot import name 'ALL_TOOLS' from 'tools' (C:\Users\atamolsh\Desktop\Manfu Agentic\dashboard\..\tools\__init__.py)
