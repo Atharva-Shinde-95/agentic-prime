@@ -1,21 +1,32 @@
-(.venv) PS C:\Users\atamolsh\Desktop\Manfu Agentic> streamlit run streamlit_app.py     
+---------------------------------------------------------------------------
+InternalServerError                       Traceback (most recent call last)
+Cell In[8], line 3
+      1 query_1 = "Can you tell me about employee E003?"
+----> 3 response_1 = agent.invoke({
+      4     "messages": [HumanMessage(content=query_1)]
+      5 })
+      7 final_answer_1 = response_1["messages"][-1].content
+      8 print(f"Agent: {final_answer_1}")
 
-  You can now view your Streamlit app in your browser.
+File c:\Users\atamolsh\Desktop\Step Langchain LangGraph\.venv\Lib\site-packages\langgraph\pregel\main.py:3050, in Pregel.invoke(self, input, config, context, stream_mode, print_mode, output_keys, interrupt_before, interrupt_after, durability, **kwargs)
+   3047 chunks: list[dict[str, Any] | Any] = []
+   3048 interrupts: list[Interrupt] = []
+-> 3050 for chunk in self.stream(
+   3051     input,
+   3052     config,
+   3053     context=context,
+   3054     stream_mode=["updates", "values"]
+   3055     if stream_mode == "values"
+   3056     else stream_mode,
+   3057     print_mode=print_mode,
+   3058     output_keys=output_keys,
+   3059     interrupt_before=interrupt_before,
+   3060     interrupt_after=interrupt_after,
+   3061     durability=durability,
+...
+   1072     break
+   1074 assert response is not None, "could not resolve response (should never happen)"
 
-  Local URL: http://localhost:8501
-  Network URL: http://10.77.252.246:8501
-
-2026-03-20 15:53:42.904 Uncaught app execution
-Traceback (most recent call last):
-  File "C:\Users\atamolsh\Desktop\Manfu Agentic\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 129, in exec_func_with_error_handling
-    result = func()
-             ^^^^^^
-  File "C:\Users\atamolsh\Desktop\Manfu Agentic\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 689, in code_to_exec
-    exec(code, module.__dict__)  # noqa: S102
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\atamolsh\Desktop\Manfu Agentic\streamlit_app.py", line 31, in <module>
-    from agent import MaintenanceAgent
-  File "C:\Users\atamolsh\Desktop\Manfu Agentic\agent.py", line 44, in <module>
-    from langchain.agents       import AgentExecutor, create_react_agent   # 0.3.x
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ImportError: cannot import name 'AgentExecutor' from 'langchain.agents' (C:\Users\atamolsh\Desktop\Manfu Agentic\.venv\Lib\site-packages\langchain\agents\__init__.py)
+InternalServerError: Error code: 500 - {'error': True, 'message': 'Error code: 400 - {\'error\': {\'message\': "Unsupported parameter: \'max_tokens\' is not supported with this model. Use \'max_completion_tokens\' instead.", \'type\': \'invalid_request_error\', \'param\': \'max_tokens\', \'code\': \'unsupported_parameter\'}}', 'type': 'Internal server error (unhandled exception)'}
+During task with name 'model' and id '06d40e48-5e88-c8aa-e883-45a5ad1b0bf4'
+Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
