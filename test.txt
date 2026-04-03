@@ -1,12 +1,15 @@
 ---------------------------------------------------------------------------
-InternalServerError                       Traceback (most recent call last)
-Cell In[8], line 3
-      1 query_1 = "Can you tell me about employee E003?"
-----> 3 response_1 = agent.invoke({
-      4     "messages": [HumanMessage(content=query_1)]
-      5 })
-      7 final_answer_1 = response_1["messages"][-1].content
-      8 print(f"Agent: {final_answer_1}")
+ValueError                                Traceback (most recent call last)
+Cell In[11], line 28
+     26 print(" UPDATE — set user_name via Command")
+     27 print("─" * 50)
+---> 28 r = state_agent.invoke({
+     29     "messages"        : [HumanMessage(content="My name is Priya. Please remember it.")],
+     30     "user_name"       : "",
+     31     "user_preferences": {},
+     32 })
+     33 print("", r["messages"][-1].content)
+     34 print(f" state['user_name'] = '{r['user_name']}'")
 
 File c:\Users\atamolsh\Desktop\Step Langchain LangGraph\.venv\Lib\site-packages\langgraph\pregel\main.py:3050, in Pregel.invoke(self, input, config, context, stream_mode, print_mode, output_keys, interrupt_before, interrupt_after, durability, **kwargs)
    3047 chunks: list[dict[str, Any] | Any] = []
@@ -20,13 +23,10 @@ File c:\Users\atamolsh\Desktop\Step Langchain LangGraph\.venv\Lib\site-packages\
    3056     else stream_mode,
    3057     print_mode=print_mode,
    3058     output_keys=output_keys,
-   3059     interrupt_before=interrupt_before,
-   3060     interrupt_after=interrupt_after,
-   3061     durability=durability,
 ...
-   1072     break
-   1074 assert response is not None, "could not resolve response (should never happen)"
+-> 1267     raise ValueError(msg)
+   1268 return updated_command
 
-InternalServerError: Error code: 500 - {'error': True, 'message': 'Error code: 400 - {\'error\': {\'message\': "Unsupported parameter: \'max_tokens\' is not supported with this model. Use \'max_completion_tokens\' instead.", \'type\': \'invalid_request_error\', \'param\': \'max_tokens\', \'code\': \'unsupported_parameter\'}}', 'type': 'Internal server error (unhandled exception)'}
-During task with name 'model' and id '06d40e48-5e88-c8aa-e883-45a5ad1b0bf4'
+ValueError: Expected to have a matching ToolMessage in Command.update for tool 'set_user_name', got: []. Every tool call (LLM requesting to call a tool) in the message history MUST have a corresponding ToolMessage. You can fix it by modifying the tool to return `Command(update=[ToolMessage("Success", tool_call_id=tool_call_id), ...], ...)`.
+During task with name 'tools' and id 'e3abdf9e-4751-b0c5-1a86-323187b46e09'
 Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
