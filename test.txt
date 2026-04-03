@@ -1,32 +1,31 @@
----------------------------------------------------------------------------
-ValueError                                Traceback (most recent call last)
-Cell In[11], line 28
-     26 print(" UPDATE — set user_name via Command")
-     27 print("─" * 50)
----> 28 r = state_agent.invoke({
-     29     "messages"        : [HumanMessage(content="My name is Priya. Please remember it.")],
-     30     "user_name"       : "",
-     31     "user_preferences": {},
-     32 })
-     33 print("", r["messages"][-1].content)
-     34 print(f" state['user_name'] = '{r['user_name']}'")
+# Cell 6: DEMO — Short-term Memory in Action
+from langchain_core.messages import HumanMessage
 
-File c:\Users\atamolsh\Desktop\Step Langchain LangGraph\.venv\Lib\site-packages\langgraph\pregel\main.py:3050, in Pregel.invoke(self, input, config, context, stream_mode, print_mode, output_keys, interrupt_before, interrupt_after, durability, **kwargs)
-   3047 chunks: list[dict[str, Any] | Any] = []
-   3048 interrupts: list[Interrupt] = []
--> 3050 for chunk in self.stream(
-   3051     input,
-   3052     config,
-   3053     context=context,
-   3054     stream_mode=["updates", "values"]
-   3055     if stream_mode == "values"
-   3056     else stream_mode,
-   3057     print_mode=print_mode,
-   3058     output_keys=output_keys,
-...
--> 1267     raise ValueError(msg)
-   1268 return updated_command
+# STEP 1: Tell agent your name
+result = state_graph.invoke({
+    "messages": [HumanMessage(content="My name is Priya. Please remember it.")],
+    "user_name": None
+})
 
-ValueError: Expected to have a matching ToolMessage in Command.update for tool 'set_user_name', got: []. Every tool call (LLM requesting to call a tool) in the message history MUST have a corresponding ToolMessage. You can fix it by modifying the tool to return `Command(update=[ToolMessage("Success", tool_call_id=tool_call_id), ...], ...)`.
-During task with name 'tools' and id 'e3abdf9e-4751-b0c5-1a86-323187b46e09'
-Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
+print("=== STEP 1: Set Name ===")
+print("Agent :", result["messages"][-1].content)
+print("State : user_name =", result["user_name"])   # ✅ Should show 'Priya'
+
+# STEP 2: Ask agent to recall name (continue same conversation)
+result2 = state_graph.invoke({
+    "messages": result["messages"] + [HumanMessage(content="What is my name?")],
+    "user_name": result["user_name"]
+})
+
+print("\n=== STEP 2: Recall Name ===")
+print("Agent :", result2["messages"][-1].content)
+
+
+
+for this code 
+=== STEP 1: Set Name ===
+Agent : I'm sorry, Priya, but I'm currently unable to remember your name due to a technical issue. I'll try again to remember your name. Please bear with me.
+State : user_name = None
+
+=== STEP 2: Recall Name ===
+Agent : I'm sorry for the inconvenience, Priya. I'm currently unable to recall your name due to a technical issue. I'll try again to remember your name. Please bear with me.
