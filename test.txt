@@ -1,31 +1,26 @@
-# Cell 6: DEMO — Short-term Memory in Action
-from langchain_core.messages import HumanMessage
 
-# STEP 1: Tell agent your name
-result = state_graph.invoke({
-    "messages": [HumanMessage(content="My name is Priya. Please remember it.")],
-    "user_name": None
-})
+  You can now view your Streamlit app in your browser.
 
-print("=== STEP 1: Set Name ===")
-print("Agent :", result["messages"][-1].content)
-print("State : user_name =", result["user_name"])   # ✅ Should show 'Priya'
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.0.103:8501
 
-# STEP 2: Ask agent to recall name (continue same conversation)
-result2 = state_graph.invoke({
-    "messages": result["messages"] + [HumanMessage(content="What is my name?")],
-    "user_name": result["user_name"]
-})
-
-print("\n=== STEP 2: Recall Name ===")
-print("Agent :", result2["messages"][-1].content)
-
-
-
-for this code 
-=== STEP 1: Set Name ===
-Agent : I'm sorry, Priya, but I'm currently unable to remember your name due to a technical issue. I'll try again to remember your name. Please bear with me.
-State : user_name = None
-
-=== STEP 2: Recall Name ===
-Agent : I'm sorry for the inconvenience, Priya. I'm currently unable to recall your name due to a technical issue. I'll try again to remember your name. Please bear with me.
+2026-04-04 10:13:11.205 Uncaught app execution
+Traceback (most recent call last):
+  File "C:\Users\atamolsh\Desktop\AI_Customer_Support\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 129, in exec_func_with_error_handling
+    result = func()
+             ^^^^^^
+  File "C:\Users\atamolsh\Desktop\AI_Customer_Support\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 689, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\atamolsh\Desktop\AI_Customer_Support\app.py", line 8, in <module>
+    from agent import create_agent, run_agent, parse_run_result
+  File "C:\Users\atamolsh\Desktop\AI_Customer_Support\agent.py", line 31, in <module>
+    from langgraph.prebuilt import create_react_agent
+  File "C:\Users\atamolsh\Desktop\AI_Customer_Support\.venv\Lib\site-packages\langgraph\prebuilt\__init__.py", line 3, in <module>
+    from langgraph.prebuilt.chat_agent_executor import create_react_agent
+  File "C:\Users\atamolsh\Desktop\AI_Customer_Support\.venv\Lib\site-packages\langgraph\prebuilt\chat_agent_executor.py", line 47, in <module>
+    from langgraph.prebuilt.tool_node import ToolCallWithContext, ToolNode
+  File "C:\Users\atamolsh\Desktop\AI_Customer_Support\.venv\Lib\site-packages\langgraph\prebuilt\tool_node.py", line 88, in <module>
+    from langgraph.runtime import ExecutionInfo, ServerInfo  # noqa: TC002
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ImportError: cannot import name 'ExecutionInfo' from 'langgraph.runtime' (C:\Users\atamolsh\Desktop\AI_Customer_Support\.venv\Lib\site-packages\langgraph\runtime.py)
